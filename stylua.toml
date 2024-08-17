@@ -2,6 +2,7 @@ indent_type = "Tabs"
 indent_width = 2
 column_width = 80
 quote_style = "AutoPreferDouble"
+call_parentheses = "Always"
 collapse_simple_statement = "Always"
 
 [sort_requires]
