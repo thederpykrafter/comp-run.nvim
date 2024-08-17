@@ -7,9 +7,7 @@ function M.GetScript()
 	os.execute("ls -1 > " .. tmpfile)
 
 	local f = io.open(tmpfile)
-	if not f then
-		return files
-	end
+	if not f then return files end
 
 	for line in f:lines() do
 		if line == "run" then
@@ -28,11 +26,11 @@ end
 function M.setup(opts)
 	opts = opts or {}
 
-	vim.api.nvim_create_autocmd("TermClose", {
-		callback = function()
-			vim.cmd("close")
-		end,
-	})
+	-- vim.api.nvim_create_autocmd("TermClose", {
+	-- 	callback = function()
+	-- 		vim.cmd("close")
+	-- 	end,
+	-- })
 
 	vim.keymap.set("n", "<leader>R", function()
 		if M.GetScript() ~= nil then
