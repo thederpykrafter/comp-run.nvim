@@ -9,18 +9,22 @@ function M.GetScript()
 	local f = io.open(tmpfile)
 	if not f then return files end
 
+	local script
+
 	for line in f:lines() do
 		if line == "run" then
-			return "./run"
+			script = "./run"
 		elseif line == "run.sh" then
-			return "./run.sh"
+			script = "./run.sh"
 		elseif line == "Makefile" then
-			return "make test"
+			script = "make test"
 		else
+			script = ""
 		end
 	end
 
 	f:close()
+	return script
 end
 
 function M.setup(opts)
