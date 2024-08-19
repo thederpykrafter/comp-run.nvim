@@ -19,6 +19,7 @@ function M.GetScript()
 		elseif line == "Makefile" then
 			script = "make test"
 		else
+			-- TODO: disable plugin if script not found
 			script = ""
 		end
 	end
