@@ -32,12 +32,40 @@ function M.setup(opts)
 	-- 	end,
 	-- })
 
-	vim.keymap.set("n", "<leader>R", function()
-		if M.GetScript() ~= nil then
-			vim.cmd("vsplit term://" .. M.GetScript())
-			vim.cmd("startinsert")
+	vim.keymap.set(
+		"n",
+		"<leader>RR",
+		":vsplit term://" .. M.GetScript() .. "<cr>i",
+		{ desc = "Comp-[R]un" }
+	)
+
+	vim.keymap.set("n", "<leader>Rr", function()
+		local input, args
+
+		local function getInput()
+			vim.ui.input(
+				{ prompt = "enter command args: " },
+				function(str) input = str end
+			)
+			return input
 		end
-	end, { desc = "Comp-[R]un" })
+
+		input = getInput()
+
+		if input == nil then return end
+
+		if M.GetScript() == "make test" then
+			args = "ARGS='-- " .. input .. "'"
+		else
+			args = input
+		end
+
+		vim.cmd(
+			":vsplit term://" .. M.GetScript() .. " " .. args .. "\n"
+		)
+		--vim.cmd("sleep 1")
+		vim.cmd("startinsert")
+	end, { desc = "Comp-[R]un with a[r]gs" })
 end
 
 return M
